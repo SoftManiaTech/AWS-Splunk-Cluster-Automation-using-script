@@ -387,6 +387,11 @@
     - name: Restart Splunk to Apply License
       command: /opt/splunk/bin/splunk restart
 
+    - name: Pause
+      run_once: true
+      pause:
+        seconds: 10
+
 - hosts: all_splunk
   gather_facts: no
   become: yes
@@ -411,6 +416,11 @@
       become_user: root
       command:
         cmd: /opt/splunk/bin/splunk restart
+    
+    - name: Pause
+      run_once: true
+      pause:
+        seconds: 15
 
 - name: Configure Splunk Users and Search Server
   hosts: all_splunk:!IFs  # Exclude Intermediate Forwarders (IFs), SH2, and SH3 manually
@@ -441,6 +451,11 @@
       become_user: root
       command:
         cmd: /opt/splunk/bin/splunk restart 
+    
+    - name: Pause
+      run_once: true
+      pause:
+        seconds: 10
 
 - name: Add all components as search peers to Management Server
   hosts: Management_server  # Run only on Management Server
